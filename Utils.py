@@ -13,7 +13,7 @@ import pandas as pd
 
 # define o nome da planilha inicial (padrão)
 def nome_planilha_inicial():
-    return 'planilhas/controle_guia_fs.xlsx'
+    return 'planilhas/teste.xlsx'
 
 # Função que aguarda um novo nome de planilha, ou mantem a mesma caso não exista novo input
 def input_nome_planilha(nome_planilha):

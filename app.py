@@ -2,7 +2,6 @@
 from Utils import *
 
 
-# teste github
 nome_planilha = nome_planilha_inicial()  # declara o nome da planilha padrão
 navegador = webdriver.Chrome()  # Configura o navegador e abre a aba do WhatsApp Web
 navegador.get("https://web.whatsapp.com/")
@@ -28,23 +27,25 @@ while True:
             data_guia_str = contatos.loc[i, "Data de emissão"]
             mensagem = f'Sua guia nº {guia} vence em 5 dias, caso não for utilizar favor solicitar o cancelamento pelo link abaixo: \nhttps://docs.google.com/forms/d/e/1FAIpQLSfMFGuGujXeFpYrTu_fSrTuvfFs9e5QZq9NqwZrUoran0qlOw/viewform?vc=0&c=0&w=1&flr=0 \n\nCaso já tenha utilizado a guia, favor desconsiderar essa mensagem. \nA Formação Sanitária do 4º Batalhão de Engenharia de Combate agradece sua compreensão.'
             variavel_erro = f'erro ao converter data str para data - pessoa {i+2} - {pessoa}'
-            data_guia = datetime.strptime(data_guia_str, '%d/%m/%y')
+            data_guia = datetime.strptime(data_guia_str, '%d/%m/%Y')
             data_msg = data_guia + timedelta(days=25)
+            print(data_msg)
             if data_msg.date() == hoje.date():
                 if contatos.loc[i, "Msg Enviada"] != "ok":
                     if str(telefone) != 'nan':
                         # print('verificando para enviar msg')
-                        # print(telefone_formatado)
+                        print(pessoa, telefone_formatado)
                         tentativas = 0
                         while True:
                             try:
                                 texto = urllib.parse.quote(f"Olá {pessoa}!\n{mensagem}\n\nEssa é uma menssagem automática.")
                                 link = f"https://web.whatsapp.com/send?phone={telefone_formatado}&text={texto}"
                                 time.sleep(2)
+                                # print(link)
                                 navegador.get(link)
                                 time.sleep(3)
                                 verifica_conexao_whatsapp(navegador)
-                                time.sleep(3)
+                                time.sleep(30)
                                 print('verifica numero valido ou invalido')
                                 if len(navegador.find_elements(By.XPATH, '//*[@id="app"]/div/span[2]/div/span/div/div/div/div/div/div[1]')) == 1:
                                     time.sleep(2)
