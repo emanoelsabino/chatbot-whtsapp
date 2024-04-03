@@ -2,6 +2,7 @@
 from Utils import *
 
 
+# teste github
 nome_planilha = nome_planilha_inicial()  # declara o nome da planilha padrão
 navegador = webdriver.Chrome()  # Configura o navegador e abre a aba do WhatsApp Web
 navegador.get("https://web.whatsapp.com/")
